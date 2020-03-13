@@ -10,14 +10,17 @@
     <script type="systemjs-importmap">
       {
         "imports": {
+		  "spa-eos-navbar": "http://localhost:4300/main.js",
+		  "spa-eos-login": "http://localhost:4201/main.js",
           "spa-eos-login": "http://localhost:4201/main.js",
+		  "spa-eos-availability": "http://localhost:4202/main.js",
           "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.5/system/single-spa.min.js"
         }
       }
     </script>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.5/system/single-spa.min.js" as="script" crossorigin="anonymous" />
     <script src='https://unpkg.com/core-js-bundle@3.1.4/minified.js'></script>
-    <script src="https://unpkg.com/zone.js"></script>
+    <script src="https://unpkg.com/zone.js@0.10.2/dist/zone.js"></script>
     <script src="https://unpkg.com/import-map-overrides@1.6.0/dist/import-map-overrides.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/system.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/4.0.0/extras/amd.min.js"></script>
@@ -27,6 +30,15 @@
 <body>
 <script>
     System.import('single-spa').then(function (singleSpa) {
+	    singleSpa.registerApplication(
+          'spa-eos-navbar',
+          function () {
+            return System.import('spa-eos-navbar');
+          },
+          function (location) {
+            return true;
+          }
+        );
         singleSpa.registerApplication(
             'spa-eos-login',
             function () {
@@ -35,8 +47,16 @@
             function (location) {
                 return location.pathname.startsWith('/auth');
             }
-        )
-
+        );
+		singleSpa.registerApplication(
+            'spa-eos-availability',
+            function () {
+                return System.import('spa-eos-availability');
+            },
+            function (location) {
+                return location.pathname.startsWith('/availability');
+            }
+        );
         singleSpa.start();
     })
 </script>

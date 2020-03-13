@@ -1,0 +1,57 @@
+<div class="login-register" style="background-image:url(https://www.mandaripanga.com/wp-content/uploads/2016/05/COMMUNITY.png);">
+  <div class="login-register-box" fxFlex="100" >
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="text-center">
+            <img alt="homepage" src="https://www.mandaripanga.com/wp-content/uploads/2017/06/logotipo-mandari-panga-2.png" width="100px">
+            <h4 class="m-t-0">Login to MandariPanga</h4>
+          </div>
+
+          <div fxLayout="row wrap">
+            <!-- col full-->
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <mat-form-field appearance="outline">
+                <mat-label>User Name  </mat-label>
+                <input matInput placeholder="User Name" [formControl]="f('username')">
+              </mat-form-field>
+
+              <app-label-form
+                [invalid]="errorHandler.isControlInvalid(f('username')) "
+                [invalidText]="errorHandler.getErrorMessage(f('username').errors) "></app-label-form>
+            </div>
+            <!-- col full-->
+
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Password  </mat-label>
+                <input matInput type="password" placeholder="Password" [formControl]="form.controls['password']">
+              </mat-form-field>
+              <app-label-form
+                [invalid]="errorHandler.isControlInvalid(f('username')) "
+                [invalidText]="errorHandler.getErrorMessage(f('username').errors) "></app-label-form>            </div>
+            <!-- col half-->
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
+              <mat-checkbox color="warn">Remember me</mat-checkbox>
+            </div>
+            <!-- col half-->
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" class="text-right">
+              <a [routerLink]="['/auth/forgot']" class="link">Forgot pwd?</a>
+            </div>
+            <!-- col full-->
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <button mat-raised-button color="primary" class="btn-block btn-lg m-t-20 m-b-20" type="submit" [disabled]="!form.valid">Login</button>
+            </div>
+            <!-- col full-->
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">
+                            <span>Don't have an account?
+                                <a [routerLink]="['/auth/register']" class="text-info link">Register</a>
+                            </span>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
